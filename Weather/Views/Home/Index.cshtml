@@ -1,0 +1,84 @@
+﻿@model Weather.Models.ForecastViewModel
+
+<h1>Weather Forecast</h1>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <table>
+            <tr>
+                <td>City: </td>
+                <td>
+                    @Html.EditorFor(model =>
+                    model.city) @Html.ValidationMessageFor(model => model.city)
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Search" />
+    </fieldset>
+}
+<br />
+<br />
+@if (Model != null && Model?.forecastDetail?.Count > 0)
+{
+    <h1>@Model.city</h1>
+    <div class="row">
+
+        @foreach (var item in Model.forecastDetail)
+        {
+            <div class="col-md-4" style="width:430px">
+                <table style="border:double; border-color:black;">
+                    <tr>
+                        <td colspan="2" style="text-align: -webkit-center;"><img style="display: block; width: 40%; height: auto;" src="http:@Html.DisplayFor(modelItem => item.day.condition.icon)" /></td>
+                    </tr>
+                    <tr>
+                        <td style="width:200px">Date:</td>
+                        <td style="width:400px">
+                            @Html.DisplayFor(modelItem => item.date)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:200px">Temperature:</td>
+                        <td style="width:400px">
+                            @Html.DisplayFor(modelItem => item.day.avgtemp_c) degree
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:200px"></td>
+                        <td style="width:400px">
+                            (max: @Html.DisplayFor(modelItem => item.day.maxtemp_c) - min: @Html.DisplayFor(modelItem => item.day.mintemp_c))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:200px">Avg Humidity:</td>
+                        <td style="width:400px">
+                            @Html.DisplayFor(modelItem => item.day.avghumidity) %
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:200px">Avg Vis:</td>
+                        <td style="width:400px">
+                            @Html.DisplayFor(modelItem => item.day.avgvis_km) km
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:200px">Chance to Raining:</td>
+                        <td style="width:400px">
+                            @Html.DisplayFor(modelItem => item.day.daily_chance_of_rain) %
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:200px">Chance to Snow:</td>
+                        <td style="width:400px">
+                            @Html.DisplayFor(modelItem => item.day.daily_chance_of_snow) %
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+
+}
+@if (Model != null && Model?.forecastDetail?.Count == 0)
+{
+    <h1>City @Html.DisplayFor(modelItem => Model.city) not Found</h1>
+}
