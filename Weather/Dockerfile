@@ -11,10 +11,10 @@ COPY ["Weather.csproj", "Weather/"]
 RUN dotnet restore "Weather/Weather.csproj"
 COPY . .
 WORKDIR "/src/Weather"
-RUN dotnet build "Weather.csproj" -c Release -o /app/build
+RUN dotnet build "Weather/Weather.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Weather.csproj" -c Release -o /app/publish
+RUN dotnet publish "Weather/Weather.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
