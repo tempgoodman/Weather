@@ -35,5 +35,6 @@ jobs:
         IMAGE_TAG: weather_master
       run: |
         ls -l
+        cd Weather
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
